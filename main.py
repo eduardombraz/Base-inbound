@@ -86,7 +86,7 @@ async def main():
             ).click()
             await page.wait_for_timeout(8000)
             await page.get_by_role("button", name="Exportar").nth(0).click()
-            await page.wait_for_timeout(15000)
+            await page.wait_for_timeout(10000)
 
             async with page.expect_download() as download_info:
                 await page.get_by_role("button", name="Baixar").first.click()
