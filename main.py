@@ -88,15 +88,14 @@ async def main():
             await page.get_by_role("button", name="Exportar").nth(0).click()
             await page.wait_for_timeout(15000)
 
-            # 👉 Botão de download 1
-            await page.goto("https://spx.shopee.com.br/#/taskCenter/exportTaskCenter")
-            await page.wait_for_timeout(8000)
             async with page.expect_download() as download_info:
-                await page.get_by_role("button", name="Baixar").nth(0).click()
+                await page.get_by_role("button", name="Baixar").first.click()
+            
             download = await download_info.value
             download_path = os.path.join(DOWNLOAD_DIR, download.suggested_filename)
             await download.save_as(download_path)
-            new_file_path = rename_downloaded_file(DOWNLOAD_DIR, download_path)
+            print(f"Download concluído: {download_path}")
+
             #####################################################################
 
             # Atualizar Google Sheets
